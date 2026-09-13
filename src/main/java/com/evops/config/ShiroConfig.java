@@ -20,6 +20,9 @@ public class ShiroConfig {
     public ShiroFilterChainDefinition shiroFilterChainDefinition() {
         DefaultShiroFilterChainDefinition chain = new DefaultShiroFilterChainDefinition();
         chain.addPathDefinition("/api/health", "anon");
+        // 微藻闭环 API：Shiro HTTP Basic 认证（骨架内置 bootstrap 账号），
+        // 业务操作者身份另由 X-Operator 请求头写入审计链。
+        chain.addPathDefinition("/api/algae/**", "authcBasic");
         chain.addPathDefinition("/error", "anon");
         chain.addPathDefinition("/**", "authc");
         return chain;
